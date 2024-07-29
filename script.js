@@ -1,18 +1,19 @@
 let button = document.querySelector('button');
-let counter = document.getElementById('counter'); 
+let counter = document.getElementById('counter');
 let count = 0;
-
 let bronzeCount = 0;
 let silverCount = 0;
 let goldCount = 0;
 let diamondCount = 0;
 
-let savedCount = getCookie("clickCount");
+// Get the cookie values (if they exist)
+let savedCount = getCookie("clickCount");;
 let savedBronzeCount = getCookie("bronzeCount");
 let savedSilverCount = getCookie("silverCount");
 let savedGoldCount = getCookie("goldCount");
 let savedDiamondCount = getCookie("diamondCount");
 
+// If cookies exist, use their values
 if (savedCount) {
   count = parseInt(savedCount);
   counter.textContent = count;
@@ -36,7 +37,64 @@ button.addEventListener('click', () => {
   count++;
   counter.textContent = count;
   setCookie("clickCount", count, 365); 
+
+  let rarity = determineRarity();
+
+  switch (rarity) {
+    case "bronze":
+      bronzeCount++;
+      break;
+    case "silver":
+      silverCount++;
+      break;
+    case "gold":
+      goldCount++;
+      break;
+    case "diamond":
+      diamondCount++;
+      break;
+  }
+
+  setCookie("bronzeCount", bronzeCount, 365);
+  setCookie("silverCount", silverCount, 365);
+  setCookie("goldCount", goldCount, 365);
+  setCookie("diamondCount", diamondCount, 365);
+
+  switch (rarity) {
+    case "bronze":
+      button.style.backgroundColor = "brown";
+      break;
+    case "silver":
+      button.style.backgroundColor = "silver";
+      break;
+    case "gold":
+      button.style.backgroundColor = "gold";
+      break;
+    case "diamond":
+      button.style.backgroundColor = "lightblue";
+      break;
+  }
+
+  updateHeader();
 });
+
+function determineRarity() {
+  let randomChance = Math.random() * 100;
+
+  if (randomChance < 70) {
+    return "bronze";
+  } else if (randomChance < 90) {
+    return "silver";
+  } else if (randomChance < 98) {
+    return "gold";
+  } else {
+    return "diamond";
+  }
+}
+
+function updateHeader() {
+  counter.textContent = `Bronze: ${bronzeCount}, Silver: ${silverCount}, Gold: ${goldCount}, Diamond: ${diamondCount}`;
+}
 
 function getCookie(cname) {
   let name = cname + "=";
