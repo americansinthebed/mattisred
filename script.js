@@ -2,10 +2,8 @@ let button = document.querySelector('button');
 let counter = document.getElementById('counter'); 
 let count = 0;
 
-// Get the cookie value (if it exists)
 let savedCount = getCookie("clickCount");
 
-// If a cookie exists, use its value for the count
 if (savedCount) {
   count = parseInt(savedCount);
   counter.textContent = count; 
@@ -14,10 +12,9 @@ if (savedCount) {
 button.addEventListener('click', () => {
   count++;
   counter.textContent = count;
-  setCookie("clickCount", count, 365); // Save the count in a cookie
+  setCookie("clickCount", count, 365); 
 });
 
-// Cookie functions
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
