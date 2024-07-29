@@ -2,12 +2,35 @@ let button = document.querySelector('button');
 let counter = document.getElementById('counter'); 
 let count = 0;
 
+let bronzeCount = 0;
+let silverCount = 0;
+let goldCount = 0;
+let diamondCount = 0;
+
 let savedCount = getCookie("clickCount");
+let savedBronzeCount = getCookie("bronzeCount");
+let savedSilverCount = getCookie("silverCount");
+let savedGoldCount = getCookie("goldCount");
+let savedDiamondCount = getCookie("diamondCount");
 
 if (savedCount) {
   count = parseInt(savedCount);
-  counter.textContent = count; 
+  counter.textContent = count;
 }
+if (savedBronzeCount) {
+  bronzeCount = parseInt(savedBronzeCount);
+}
+if (savedSilverCount) {
+  silverCount = parseInt(savedSilverCount);
+}
+if (savedGoldCount) {
+  goldCount = parseInt(savedGoldCount);
+}
+if (savedDiamondCount) {
+  diamondCount = parseInt(savedDiamondCount);
+}
+
+updateHeader();
 
 button.addEventListener('click', () => {
   count++;
